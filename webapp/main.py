@@ -13,18 +13,103 @@ def index():
         'index.html',
     )
 
+
+
 @app.route('/table', methods=['POST'])
 def table():
+    date = request.form['date']     #from index request for selecting table's date
+    dt_date = datetime.strptime(date, "%Y-%m-%dT%H:%M")
+    target_uni_date = int(datetime.timestamp(dt_date) - dt_date.hour * 60 * 60 - dt_date.minute * 60 - dt_date.second)
+    first_baked = 9
+    second_baked = 11.5
+    third_baked = 12.5
+    forth_baked = 14
+    tomorrow = 24
+
     con = sqlite3.connect(DATABASE)
     db_reserves = con.execute("SELECT * FROM reserves").fetchall()      #fetchall → Form type List
     con.close()
 
-    columns=('name', 'tell', 'date', 'n_hon', 'n_kin', 'res1', 'n_res1', \
-        'res2', 'n_res2', 'res3', 'n_res3', 'res4', 'n_res4', 'res5', 'n_res5', 'other')
+    df_reserves = pd.DataFrame(db_reserves, columns=('name', 'tell', 'date', 'n_hon', 'n_kin', 'res1', 'n_res1', \
+        'res2', 'n_res2', 'res3', 'n_res3', 'res4', 'n_res4', 'res5', 'n_res5', 'other'))
+
+    restext1 = []
+    restext2 = []
+    restext3 = []
+    restext4 = []
+    for i in range(len(df_reserves)):
+        if df_reserves['date'][i] >= target_uni_date and df_reserves['date'][i] < target_uni_date * second_baked * 3600:
+            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
+                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
+                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
+                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
+                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
+                    + '　 予約 　：' + '\n'\
+                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
+                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
+                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
+                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
+                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
+                    + ' 伝達事項 ：' + df_reserves['other'][i]
+            restext1.append(text)
+        elif df_reserves['date'][i] >= target_uni_date * second_baked * 3600 and df_reserves['date'][i] < target_uni_date * third_baked * 3600:
+            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
+                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
+                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
+                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
+                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
+                    + '　 予約 　：' + '\n'\
+                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
+                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
+                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
+                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
+                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
+                    + ' 伝達事項 ：' + df_reserves['other'][i]
+            restext2.append(text)
+        elif df_reserves['date'][i] >= target_uni_date * third_baked * 3600 and df_reserves['date'][i] < target_uni_date * forth_baked * 3600:
+            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
+                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
+                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
+                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
+                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
+                    + '　 予約 　：' + '\n'\
+                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
+                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
+                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
+                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
+                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
+                    + ' 伝達事項 ：' + df_reserves['other'][i]
+            restext3.append(text)
+        elif df_reserves['date'][i] >= target_uni_date * forth_baked * 3600 and df_reserves['date'][i] < target_uni_date * tomorrow * 3600:
+            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
+                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
+                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
+                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
+                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
+                    + '　 予約 　：' + '\n'\
+                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
+                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
+                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
+                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
+                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
+                    + ' 伝達事項 ：' + df_reserves['other'][i]
+            restext4.append(text)
+
+
+    reserves1 = [{'content': restext1}]
+    reserves2 = [{'content': restext2}]
+    reserves3 = [{'content': restext3}]
+    reserves4 = [{'content': restext4}]
+
     return render_template(
         'index.html',
-        reservers=reserves
+        reservers1=reserves1,
+        reservers2=reserves2,
+        reservers3=reserves3,
+        reservers4=reserves4
     )
+
+
 
 
 @app.route('/form')
@@ -32,6 +117,8 @@ def form():
     return render_template(
         'form.html',
     )
+
+
 
 
 
