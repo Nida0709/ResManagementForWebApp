@@ -18,7 +18,7 @@ DATABASE = 'database.db'
 @app.route('/')
 def index():
     return render_template(
-        'index.html',
+        'index.html'
     )
 
 
@@ -47,74 +47,36 @@ def table():
 
     df_reserves = pd.DataFrame(db_reserves, columns=('name', 'tell', 'date', 'n_hon', 'n_kin', 'res1', 'n_res1', \
         'res2', 'n_res2', 'res3', 'n_res3', 'res4', 'n_res4', 'res5', 'n_res5', 'other'))
+    col = ['name', 'tell', 'date', 'n_hon', 'n_kin', 'res1', 'n_res1', \
+        'res2', 'n_res2', 'res3', 'n_res3', 'res4', 'n_res4', 'res5', 'n_res5', 'other']
 
-    restext1 = []
-    restext2 = []
-    restext3 = []
-    restext4 = []
+    reserves1 = []
+    reserves2 = []
+    reserves3 = []
+    reserves4 = []
+
     for i in range(len(df_reserves)):
         if df_reserves['date'][i] >= target_uni_date and df_reserves['date'][i] < target_uni_date * second_baked * 3600:
-            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
-                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
-                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
-                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
-                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
-                    + '　 予約 　：' + '\n'\
-                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
-                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
-                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
-                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
-                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
-                    + ' 伝達事項 ：' + df_reserves['other'][i]
-            restext1.append(text)
+            temp = []
+            for j in range(len(df_reserves.values[i])):
+                temp.append({col[j]: df_reserves.values[i][j]})
+            reserves1.append(temp)
         elif df_reserves['date'][i] >= target_uni_date * second_baked * 3600 and df_reserves['date'][i] < target_uni_date * third_baked * 3600:
-            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
-                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
-                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
-                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
-                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
-                    + '　 予約 　：' + '\n'\
-                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
-                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
-                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
-                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
-                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
-                    + ' 伝達事項 ：' + df_reserves['other'][i]
-            restext2.append(text)
+            temp = []
+            for j in range(len(df_reserves.values[i])):
+                temp.append({col[j]: df_reserves.values[i][j]})
+            reserves2.append(temp)
         elif df_reserves['date'][i] >= target_uni_date * third_baked * 3600 and df_reserves['date'][i] < target_uni_date * forth_baked * 3600:
-            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
-                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
-                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
-                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
-                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
-                    + '　 予約 　：' + '\n'\
-                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
-                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
-                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
-                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
-                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
-                    + ' 伝達事項 ：' + df_reserves['other'][i]
-            restext3.append(text)
+            temp = []
+            for j in range(len(df_reserves.values[i])):
+                temp.append({col[j]: df_reserves.values[i][j]})
+            reserves3.append(temp)
         elif df_reserves['date'][i] >= target_uni_date * forth_baked * 3600 and df_reserves['date'][i] < target_uni_date * tomorrow * 3600:
-            text = '　 氏名 　：' + df_reserves['name'][i] + '\n'\
-                    + ' 電話番号 ：' + df_reserves['tell'][i] + '\n'\
-                    + '　 日付 　：' + df_reserves['date'][i] + '\n'\
-                    + '食パン(本)：' + df_reserves['n_hon'][i] + '本' + '\n'\
-                    + '食パン(斤)：' + df_reserves['n_kin'][i] + '斤' + '\n'\
-                    + '　 予約 　：' + '\n'\
-                        + df_reserves['res1'][i] + 'x' + df_reserves['n_res1'][i] + '\n'\
-                        + df_reserves['res2'][i] + 'x' + df_reserves['n_res2'][i] + '\n'\
-                        + df_reserves['res3'][i] + 'x' + df_reserves['n_res3'][i] + '\n'\
-                        + df_reserves['res4'][i] + 'x' + df_reserves['n_res4'][i] + '\n'\
-                        + df_reserves['res5'][i] + 'x' + df_reserves['n_res5'][i] + '\n'\
-                    + ' 伝達事項 ：' + df_reserves['other'][i]
-            restext4.append(text)
+            temp = []
+            for j in range(len(df_reserves.values[i])):
+                temp.append({col[j]: df_reserves.values[i][j]})
+            reserves4.append(temp)
 
-
-    reserves1 = [{'content': restext1}]
-    reserves2 = [{'content': restext2}]
-    reserves3 = [{'content': restext3}]
-    reserves4 = [{'content': restext4}]
 
     return render_template(
         'table.html',
@@ -136,7 +98,7 @@ def table():
 @app.route('/form')
 def form():
     return render_template(
-        'form.html',
+        'form.html'
     )
 
 

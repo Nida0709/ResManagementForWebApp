@@ -5,33 +5,239 @@
             <title>web_ResManage</title>
     </head>
     <body>
-        <table border="1">
-            {%for reserve in reserves1 %}
+        <h1>もこパン予約システム</h1>
+        <h2>予約一覧</h2>
+        {% for reserve in reservers1 %}
+            <table border="1">
                 <tr>
-                    <th>{{reserve.content}}</th>
+                    <th>氏名</th>
+                    <td>{{reserve.name}}</td>
                 </tr>
-            {% endfor %}
-        </table>
-        <table border="1">
-            {%for reserve in reserves2 %}
                 <tr>
-                    <th>{{reserve.content}}</th>
+                    <th>電話番号</th>
+                    <td>{{reserve.tell}}</td>
                 </tr>
-            {% endfor %}
-        </table>
-        <table border="1">
-            {%for reserve in reserves3 %}
                 <tr>
-                    <th>{{reserve.content}}</th>
+                    <th>日付</th>
+                    <td>{{reserve.date}}</td>
                 </tr>
-            {% endfor %}
-        </table>
-        <table border="1">
-            {%for reserve in reserves4 %}
                 <tr>
-                    <th>{{reserve.content}}</th>
+                    <th>食パン(本)</th>
+                    <td>{{reserve.n_hon}}</td>
                 </tr>
-            {% endfor %}
-        </table>
+                <tr>
+                    <th>食パン(斤)</th>
+                    <td>{{reserve.n_kin}}</td>
+                </tr>
+                <tr>
+                    <th>予約1</th>
+                    <td>{{reserve.res1}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res1}}</td>
+                </tr>
+                <tr>
+                    <th>予約2</th>
+                    <td>{{reserve.res2}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res2}}</td>
+                </tr>
+                <tr>
+                    <th>予約3</th>
+                    <td>{{reserve.res3}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res3}}</td>
+                </tr>
+                <tr>
+                    <th>予約4</th>
+                    <td>{{reserve.res4}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res4}}</td>
+                </tr>
+                <tr>
+                    <th>予約5</th>
+                    <td>{{reserve.res5}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res5}}</td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td>{{reserve.other}}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        {% for reserve in reservers2 %}
+            <table border="1">
+                <tr>
+                    <th>氏名</th>
+                    <td>{{reserve.name}}</td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>{{reserve.tell}}</td>
+                </tr>
+                <tr>
+                    <th>日付</th>
+                    <td>{{reserve.date}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(本)</th>
+                    <td>{{reserve.n_hon}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(斤)</th>
+                    <td>{{reserve.n_kin}}</td>
+                </tr>
+                <tr>
+                    <th>予約1</th>
+                    <td>{{reserve.res1}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res1}}</td>
+                </tr>
+                <tr>
+                    <th>予約2</th>
+                    <td>{{reserve.res2}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res2}}</td>
+                </tr>
+                <tr>
+                    <th>予約3</th>
+                    <td>{{reserve.res3}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res3}}</td>
+                </tr>
+                <tr>
+                    <th>予約4</th>
+                    <td>{{reserve.res4}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res4}}</td>
+                </tr>
+                <tr>
+                    <th>予約5</th>
+                    <td>{{reserve.res5}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res5}}</td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td>{{reserve.other}}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        {% for reserve in reservers3 %}
+            <table border="1">
+                <tr>
+                    <th>氏名</th>
+                    <td>{{reserve.name}}</td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>{{reserve.tell}}</td>
+                </tr>
+                <tr>
+                    <th>日付</th>
+                    <td>{{reserve.date}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(本)</th>
+                    <td>{{reserve.n_hon}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(斤)</th>
+                    <td>{{reserve.n_kin}}</td>
+                </tr>
+                <tr>
+                    <th>予約1</th>
+                    <td>{{reserve.res1}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res1}}</td>
+                </tr>
+                <tr>
+                    <th>予約2</th>
+                    <td>{{reserve.res2}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res2}}</td>
+                </tr>
+                <tr>
+                    <th>予約3</th>
+                    <td>{{reserve.res3}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res3}}</td>
+                </tr>
+                <tr>
+                    <th>予約4</th>
+                    <td>{{reserve.res4}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res4}}</td>
+                </tr>
+                <tr>
+                    <th>予約5</th>
+                    <td>{{reserve.res5}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res5}}</td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td>{{reserve.other}}</td>
+                </tr>
+            </table>
+        {% endfor %}
+        {% for reserve in reservers4 %}
+            <table border="1">
+                <tr>
+                    <th>氏名</th>
+                    <td>{{reserve.name}}</td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>{{reserve.tell}}</td>
+                </tr>
+                <tr>
+                    <th>日付</th>
+                    <td>{{reserve.date}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(本)</th>
+                    <td>{{reserve.n_hon}}</td>
+                </tr>
+                <tr>
+                    <th>食パン(斤)</th>
+                    <td>{{reserve.n_kin}}</td>
+                </tr>
+                <tr>
+                    <th>予約1</th>
+                    <td>{{reserve.res1}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res1}}</td>
+                </tr>
+                <tr>
+                    <th>予約2</th>
+                    <td>{{reserve.res2}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res2}}</td>
+                </tr>
+                <tr>
+                    <th>予約3</th>
+                    <td>{{reserve.res3}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res3}}</td>
+                </tr>
+                <tr>
+                    <th>予約4</th>
+                    <td>{{reserve.res4}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res4}}</td>
+                </tr>
+                <tr>
+                    <th>予約5</th>
+                    <td>{{reserve.res5}}</td>
+                    <th>個数</th>
+                    <td>{{reserve.n_res5}}</td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td>{{reserve.other}}</td>
+                </tr>
+            </table>
+        {% endfor %}
     </body>
 </html>
