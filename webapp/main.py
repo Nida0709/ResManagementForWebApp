@@ -1,28 +1,30 @@
-import os, sys, csv, phonenumbers
+import os, sys, csv, phonenumbers, sqlite3
 from datetime import datetime
-from xmlrpc.client import DateTime
 import pandas as pd
 from webapp import app
 from flask import render_template, redirect, request, url_for
 
+DATABASE = 'database.db'
 
 
 @app.route('/')
 def index():
-    books = [
-        {'title': 'はらぺこあおむし',
-        'price': '1200',
-        'arrival_day': '2022年7月12日'},
-        {'title': 'はらぺこあおむし',
-        'price': '1200',
-        'arrival_day': '2022年7月12日'}
-        ]
-
     return render_template(
         'index.html',
-        books=books
     )
 
+@app.route('/table', methods=['POST'])
+def table():
+    con = sqlite3.connect(DATABASE)
+    db_reserves = con.execute("SELECT * FROM reserves").fetchall()      #fetchall → Form type List
+    con.close()
+
+    columns=('name', 'tell', 'date', 'n_hon', 'n_kin', 'res1', 'n_res1', \
+        'res2', 'n_res2', 'res3', 'n_res3', 'res4', 'n_res4', 'res5', 'n_res5', 'other')
+    return render_template(
+        'index.html',
+        reservers=reserves
+    )
 
 
 @app.route('/form')

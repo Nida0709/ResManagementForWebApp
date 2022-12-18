@@ -5,3 +5,7 @@ from flask import Flask
 app = Flask(__name__)
 
 import webapp.main
+
+
+from webapp import db
+db.create_reserve_table()
