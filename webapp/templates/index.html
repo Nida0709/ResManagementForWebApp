@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="ja"
+<html lang="ja">
     <head>
-            <meta charset="UTF-8">
-            <title>web_ResManage</title>
+        <meta charset="UTF-8">
+        <title>web_ResManage</title>
     </head>
     <body>
-            <h1>もこパン予約システム</h1>
-            <form method="post" action="{{ url_for('table') }}">
-                <table border="0">
-                    <tr>
-                        <th>日付</th>
-                        <td><input type="datetime-local" name="date"></td>
-                    </tr>
-                </table>
-                <input type="submit" value="予約一覧">
-            </form>
-            <br>
-            <br>
-            <a href="{{ url_for('form') }}">
-                <button type="button">予約登録</button>
-            </a>
+        <h1>もこパン予約システム</h1>
+        <form method="post" action="{{ url_for('table') }}">
+            <table border="0">
+                <tr>
+                    <th>日付</th>
+                    <td><input type="datetime-local" name="date"></td>
+                </tr>
+            </table>
+            <input type="submit" value="予約一覧">
+        </form>
+        <br>
+        <a href="{{ url_for('form') }}">
+            <button type="button">予約登録</button>
+        </a>
     </body>
 </html>

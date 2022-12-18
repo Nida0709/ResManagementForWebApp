@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="ja"
+<html lang="ja">
     <head>
-            <meta charset="UTF-8">
-            <title>web_ResManage</title>
+        <meta charset="UTF-8">
+        <title>web_ResManage</title>
     </head>
     <body>
         <h1>もこパン予約システム</h1>
         <h2>予約一覧</h2>
+        <h3>
+            <td>{{first_baked}}</td>
+        </h3>
         {% for reserve in reservers1 %}
-            <table border="1">
+            <table border="1" align="left">
                 <tr>
                     <th>氏名</th>
                     <td>{{reserve.name}}</td>
@@ -63,10 +66,33 @@
                     <th>その他</th>
                     <td>{{reserve.other}}</td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href="/{{reserve.resID}}/delete" role="button">
+                            <button type="button">削除</button>
+                        </a>
+                    </td>
+                </tr>
             </table>
         {% endfor %}
+
+        <table border="0">
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+        </table>
+        <h3><td>{{second_baked}}</td></h3>
         {% for reserve in reservers2 %}
-            <table border="1">
+            <table border="1" align="left">
                 <tr>
                     <th>氏名</th>
                     <td>{{reserve.name}}</td>
@@ -121,10 +147,33 @@
                     <th>その他</th>
                     <td>{{reserve.other}}</td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href="/{{reserve.resID}}/delete" role="button">
+                            <button type="button">削除</button>
+                        </a>
+                    </td>
+                </tr>
             </table>
         {% endfor %}
+
+        <table border="0">
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+        </table>
+        <h3><td>{{third_baked}}</td></h3>
         {% for reserve in reservers3 %}
-            <table border="1">
+            <table border="1" align="left">
                 <tr>
                     <th>氏名</th>
                     <td>{{reserve.name}}</td>
@@ -179,10 +228,33 @@
                     <th>その他</th>
                     <td>{{reserve.other}}</td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href="/{{reserve.resID}}/delete" role="button">
+                            <button type="button">削除</button>
+                        </a>
+                    </td>
+                </tr>
             </table>
         {% endfor %}
+
+        <table border="0">
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+        </table>
+        <h3><td>{{forth_baked}}</td></h3>
         {% for reserve in reservers4 %}
-            <table border="1">
+            <table border="1" align="left">
                 <tr>
                     <th>氏名</th>
                     <td>{{reserve.name}}</td>
@@ -237,7 +309,29 @@
                     <th>その他</th>
                     <td>{{reserve.other}}</td>
                 </tr>
+                <tr>
+                    <td>
+                        <a href="/{{reserve.resID}}/delete" role="button">
+                            <button type="button">削除</button>
+                        </a>
+                    </td>
+                </tr>
             </table>
         {% endfor %}
+        <table border="0">
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+            <tr><th>🐈‍</th></tr>
+        </table>
+        <a href="{{ url_for('index') }}">>戻る</a>
     </body>
 </html>
