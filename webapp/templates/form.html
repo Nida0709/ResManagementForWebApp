@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>web_web_ResManag</title>
+    </head>
+    <body>
+        <h1>予約画面</h1>
+        <form method="post" action="{{ url_for('register') }}">
+            <table border="1">
+                <tr>
+                    <th>氏名</th>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td><input type="tel" name="tel"></td>
+                </tr>
+                <tr>
+                    <th>日付</th>
+                    <td><input type="datetime-local" name="day"></td>
+                </tr>
+                <tr>
+                    <th>食パン(本)</th>
+                    <td><input type="number" name="n_hon"></td>
+                </tr>
+                <tr>
+                    <th>食パン(斤)</th>
+                    <td><input type="number" name="n_kin"></td>
+                </tr>
+                <tr>
+                    <th>予約(1)</th>
+                    <td><input type="text" name="res1"></td>
+                    <th>個数(1)</th>
+                    <td><input type="number" name="n_res1"></td>
+                </tr>
+                <tr>
+                    <th>予約(2)</th>
+                    <td><input type="text" name="res2"></td>
+                    <th>個数(2)</th>
+                    <td><input type="number" name="n_res2"></td>
+                </tr>
+                <tr>
+                    <th>予約(3)</th>
+                    <td><input type="text" name="res3"></td>
+                    <th>個数(3)</th>
+                    <td><input type="number" name="n_res3"></td>
+                </tr>
+                <tr>
+                    <th>予約(4)</th>
+                    <td><input type="text" name="res4"></td>
+                    <th>個数(4)</th>
+                    <td><input type="number" name="n_res4"></td>
+                </tr>
+                <tr>
+                    <th>予約(5)</th>
+                    <td><input type="text" name="res5"></td>
+                    <th>個数(5)</th>
+                    <td><input type="number" name="n_res5"></td>
+                </tr>
+                <tr>
+                    <th>その他</th>
+                    <td><input type="text" name="other"></td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="登録">
+        </form>
+        <a href="{{ url_for('index') }}">>戻る</a>
+    </body>
+</html>
