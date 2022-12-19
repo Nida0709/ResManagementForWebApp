@@ -36,6 +36,7 @@ def index():
 def table():
     global date     #"caution" this line is original as table2
     date = request.form['date']     #from index request for selecting table's date
+
     dt_date = datetime.strptime(date, "%Y-%m-%dT%H:%M")
     target_uni_date = int(datetime.timestamp(dt_date) - dt_date.hour * 60 * 60 - dt_date.minute * 60 - dt_date.second)
     first_baked = 9
@@ -89,7 +90,7 @@ def table():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -120,7 +121,7 @@ def table():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -151,7 +152,7 @@ def table():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -182,53 +183,66 @@ def table():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
     
     
-    
+
     con = sqlite3.connect(OTHER_DATABASE)
     db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)).fetchall()      #fetchall → Form type List
     con.close()
     for i in range(len(other_reserves)):
-        for j in range(len(db_other_reserves)):
-            if other_reserves[i][0] == db_other_reserves[j][2]:
-                if other_reserves[i][1] == db_other_reserves[j][3]:
-                    break
-                else:
+        if len(db_other_reserves) == 0:
+            with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
+                count = fp.read()
+            count = int(count[1:])
+            resID = int(count)
+            con = sqlite3.connect(OTHER_DATABASE)
+            con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 0])
+            con.commit()
+            con.close()
+            resID = resID + 1
+            resID = 'c' + str(resID)
+            with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
+                fp.write(resID)
+        else:
+            for j in range(len(db_other_reserves)):
+                if other_reserves[i][0] == db_other_reserves[j][2]:
+                    if other_reserves[i][1] == db_other_reserves[j][3]:
+                        break
+                    else:
+                        con = sqlite3.connect(OTHER_DATABASE)
+                        con.execute("UPDATE reserves SET quantity = "+ str(other_reserves[i][1]) + " WHERE resID = "+str(db_other_reserves[j][0]))
+                        con.execute("UPDATE reserves SET frag = 0 WHERE resID = "+str(db_other_reserves[j][0]))
+                        con.commit()
+                        con.close()
+                if j == len(db_other_reserves)-1:
+                    with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
+                        count = fp.read()
+                    count = int(count[1:])
+                    resID = int(count)
                     con = sqlite3.connect(OTHER_DATABASE)
-                    con.execute("UPDATE reserves SET quantity ="+ str(other_reserves[i][1]) + "WHERE resID = "+str(db_other_reserves[j][0]))
-                    con.execute("UPDATE reserves SET frag = FALSE WHERE resID = "+str(db_other_reserves[j][0]))
+                    con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 0])
                     con.commit()
                     con.close()
-            if j == len(db_other_reserves)-1:
-                with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
-                    count = fp.read()
-                count = int(count[1:])
-                resID = int(count)
-                con = sqlite3.connect(OTHER_DATABASE)
-                con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 'FALSE'])
-                con.commit()
-                con.close()
-                resID = resID + 1
-                resID = 'c' + str(resID)
-                with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
-                    fp.write(resID)
+                    resID = resID + 1
+                    resID = 'c' + str(resID)
+                    with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
+                        fp.write(resID)
 
     con = sqlite3.connect(OTHER_DATABASE)
-    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)+ ' AND frag = FALSE').fetchall()      #fetchall → Form type List
+    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)).fetchall()      #fetchall → Form type List
     con.close()
     undone_other_reserves = []
-    for row in db_other_reserves:
-        undone_other_reserves.append({'resID': db_other_reserves[0], 'content': str(db_other_reserves[2]+'x'+db_other_reserves[3]), 'frag': db_other_reserves[4]})
-    con = sqlite3.connect(OTHER_DATABASE)
-    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)+ ' AND frag = TRUE').fetchall()      #fetchall → Form type List
-    con.close()
     done_other_reserves = []
     for row in db_other_reserves:
-        done_other_reserves.append({'resID': db_other_reserves[0], 'content': str(db_other_reserves[2]+'x'+db_other_reserves[3]), 'frag': db_other_reserves[4]})
+        if row[4] == 0:
+            undone_other_reserves.append({'resID': str(row[0]), 'content': str(str(row[2])+'x'+str(row[3])), 'frag': row[4]})
+        else:
+            done_other_reserves.append({'resID': str(row[0]), 'content': str(str(row[2])+'x'+str(row[3])), 'frag': row[4]})
+
     return render_template(
         'table.html',
         undone_other_reserves=undone_other_reserves,
@@ -307,7 +321,7 @@ def table2():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -338,7 +352,7 @@ def table2():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -369,7 +383,7 @@ def table2():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
@@ -400,63 +414,66 @@ def table2():
                     else:
                         for k in range(len(other_reserves)):        #if held datas have new data, add number
                             if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                other_reserves[k][1] = int(other_reserves[k][1]) + int(df_reserves[other_reserves_columns[1][j]][i])
                                 break
                             if k == len(other_reserves)-1:
                                 other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
     
     
+
     con = sqlite3.connect(OTHER_DATABASE)
     db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)).fetchall()      #fetchall → Form type List
     con.close()
     for i in range(len(other_reserves)):
-        for j in range(len(db_other_reserves)):
-            if other_reserves[i][0] == db_other_reserves[j][2]:
-                if other_reserves[i][1] == db_other_reserves[j][3]:
-                    break
-                else:
+        if len(db_other_reserves) == 0:
+            with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
+                count = fp.read()
+            count = int(count[1:])
+            resID = int(count)
+            con = sqlite3.connect(OTHER_DATABASE)
+            con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 0])
+            con.commit()
+            con.close()
+            resID = resID + 1
+            resID = 'c' + str(resID)
+            with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
+                fp.write(resID)
+        else:
+            for j in range(len(db_other_reserves)):
+                if other_reserves[i][0] == db_other_reserves[j][2]:
+                    if other_reserves[i][1] == db_other_reserves[j][3]:
+                        break
+                    else:
+                        con = sqlite3.connect(OTHER_DATABASE)
+                        con.execute("UPDATE reserves SET quantity = "+ str(other_reserves[i][1]) + " WHERE resID = "+str(db_other_reserves[j][0]))
+                        con.execute("UPDATE reserves SET frag = 0 WHERE resID = "+str(db_other_reserves[j][0]))
+                        con.commit()
+                        con.close()
+                if j == len(db_other_reserves)-1:
+                    with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
+                        count = fp.read()
+                    count = int(count[1:])
+                    resID = int(count)
                     con = sqlite3.connect(OTHER_DATABASE)
-                    con.execute("UPDATE reserves SET quantity ="+ str(other_reserves[i][1]) + "WHERE resID = "+str(db_other_reserves[j][0]))
-                    con.execute("UPDATE reserves SET frag = FALSE WHERE resID = "+str(db_other_reserves[j][0]))
+                    con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 0])
                     con.commit()
                     con.close()
-            if j == len(db_other_reserves)-1:
-                with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'r', encoding='UTF8') as fp:
-                    count = fp.read()
-                count = int(count[1:])
-                resID = int(count)
-                con = sqlite3.connect(OTHER_DATABASE)
-                con.execute("INSERT INTO reserves VALUES(?, ?, ?, ?, ?)", [resID, target_uni_date, other_reserves[i][0], other_reserves[i][1], 'FALSE'])
-                con.commit()
-                con.close()
-                resID = resID + 1
-                resID = 'c' + str(resID)
-                with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
-                    fp.write(resID)
+                    resID = resID + 1
+                    resID = 'c' + str(resID)
+                    with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
+                        fp.write(resID)
 
     con = sqlite3.connect(OTHER_DATABASE)
-    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)+ ' AND frag = FALSE').fetchall()      #fetchall → Form type List
+    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)).fetchall()      #fetchall → Form type List
     con.close()
     undone_other_reserves = []
-    for row in db_other_reserves:
-        undone_other_reserves.append({'resID': db_other_reserves[0], 'content': str(db_other_reserves[2]+'x'+db_other_reserves[3]), 'frag': db_other_reserves[4]})
-    con = sqlite3.connect(OTHER_DATABASE)
-    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = " + str(target_uni_date)+ ' AND frag = TRUE').fetchall()      #fetchall → Form type List
-    con.close()
     done_other_reserves = []
     for row in db_other_reserves:
-        done_other_reserves.append({'resID': db_other_reserves[0], 'content': str(db_other_reserves[2]+'x'+db_other_reserves[3]), 'frag': db_other_reserves[4]})
-    
-    
-    print('-------------other_reserves-------------')
-    print(other_reserves)
-    print('-------------undone_other_reserves-------------')
-    print(undone_other_reserves)
-    print('-------------done_other_reserves-------------')
-    print(done_other_reserves)
-    
-    
-    
+        if row[4] == 0:
+            undone_other_reserves.append({'resID': str(row[0]), 'content': str(str(row[2])+'x'+str(row[3])), 'frag': row[4]})
+        else:
+            done_other_reserves.append({'resID': str(row[0]), 'content': str(str(row[2])+'x'+str(row[3])), 'frag': row[4]})
+
     return render_template(
         'table.html',
         undone_other_reserves=undone_other_reserves,
@@ -470,7 +487,6 @@ def table2():
         third_baked=datetime.fromtimestamp(target_uni_date+third_baked*3600).strftime("%H時%M分"),
         forth_baked=datetime.fromtimestamp(target_uni_date+forth_baked*3600).strftime("%H時%M分")
     )
-
 
 
 
@@ -556,7 +572,32 @@ def register():
 @app.route("/<int:id>/delete",methods=["GET"])
 def delete(id):
     con = sqlite3.connect(DATABASE)
+    db_reserves = con.execute("SELECT * FROM reserves WHERE resID = "+str(id)).fetchall()      #fetchall → Form type List
     con.execute("DELETE FROM reserves WHERE resID="+str(id))
+    con.commit()
+    con.close()
+
+    dt_date = datetime.strptime(date, "%Y-%m-%dT%H:%M")
+    target_uni_date = int(datetime.timestamp(dt_date) - dt_date.hour * 60 * 60 - dt_date.minute * 60 - dt_date.second)
+    con = sqlite3.connect(OTHER_DATABASE)
+    db_other_reserves = con.execute("SELECT * FROM reserves WHERE date = "+str(target_uni_date)).fetchall()      #fetchall → Form type List
+    con.close()
+
+    for row_res in db_reserves:
+        for row_otres in db_other_reserves:
+            for i in range(6, 16, 2):
+                if row_res[i] == row_otres[2]:
+                    #renew db
+                    con = sqlite3.connect(OTHER_DATABASE)
+                    db_other_reserves = con.execute("UPDATE reserves SET quantity = "+str(int(row_otres[3])-int(row_res[i+1]))+" WHERE resID = "+str(row_otres[0]))
+                    con.commit()
+                    con.close()
+    
+    #0 quantity delete
+    con = sqlite3.connect(OTHER_DATABASE)
+    con.execute("DELETE FROM reserves WHERE quantity = 0")
+    con.execute("DELETE FROM reserves WHERE quantity IS NULL")
+    con.execute("DELETE FROM reserves WHERE date < "+str(target_uni_date))
     con.commit()
     con.close()
 
@@ -574,7 +615,7 @@ def delete(id):
 @app.route("/<int:id>/done",methods=["GET"])
 def done(id):
     con = sqlite3.connect(OTHER_DATABASE)
-    con.execute("UPDATE reserves SET frag = TRUE WHERE resID = "+str(id))
+    con.execute("UPDATE reserves SET frag = 1 WHERE resID = "+str(id))
     con.commit()
     con.close()
 
@@ -584,7 +625,7 @@ def done(id):
 @app.route("/<int:id>/undone",methods=["GET"])
 def undone(id):
     con = sqlite3.connect(OTHER_DATABASE)
-    con.execute("UPDATE reserves SET frag = FALSE WHERE resID = "+str(id))
+    con.execute("UPDATE reserves SET frag = 0 WHERE resID = "+str(id))
     con.commit()
     con.close()
 
