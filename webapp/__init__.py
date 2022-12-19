@@ -11,3 +11,7 @@ from webapp import db
 db.create_reserve_table()
 
 db.resID_remind()
+
+db.create_other_reserve_table()
+
+db.other_resID_remind()

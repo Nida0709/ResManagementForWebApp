@@ -3,10 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <title>web_ResManage</title>
+        <meta name="viewport" content="width=device-width">
+        <meta http-equiv="refresh" content="10; URL=/table2">
     </head>
     <body>
         <h1>もこパン予約システム</h1>
         <h2>予約一覧</h2>
+        <table>
+            <tr><h3>予約済み</h3></tr>
+            {% for reserve in undone_other_reserves %}
+                <tr>
+                    <a href="/{{reserve.resID}}/done" role="button">
+                        <td>{{reserve.content}}</td>
+                    </a>
+                </tr>
+            {% endfor %}
+        </table>
+        <table>
+            <tr><h3>確保済み</h3></tr>
+            {% for reserve in done_other_reserves %}
+                <tr>
+                    <a href="/{{reserve.resID}}/undone" role="button">
+                        <td>{{reserve.content}}</td>
+                    </a>
+                </tr>
+            {% endfor %}
+        </table>
         <h3>
             <td>{{first_baked}}</td>
         </h3>
