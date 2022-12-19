@@ -84,12 +84,15 @@ def table():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + second_baked * 3600) and (df_reserves['date'][i] < target_uni_date + third_baked * 3600):
             reserves2.append({
                 'resID': df_reserves['resID'][i],
@@ -112,12 +115,15 @@ def table():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + third_baked * 3600) and (df_reserves['date'][i] < target_uni_date + forth_baked * 3600):
             reserves3.append({
                 'resID': df_reserves['resID'][i],
@@ -140,12 +146,15 @@ def table():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + forth_baked * 3600) and (df_reserves['date'][i] < target_uni_date + tomorrow * 3600):
             reserves4.append({
                 'resID': df_reserves['resID'][i],
@@ -168,12 +177,16 @@ def table():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+    
     
     
     con = sqlite3.connect(OTHER_DATABASE)
@@ -289,12 +302,15 @@ def table2():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + second_baked * 3600) and (df_reserves['date'][i] < target_uni_date + third_baked * 3600):
             reserves2.append({
                 'resID': df_reserves['resID'][i],
@@ -317,12 +333,15 @@ def table2():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + third_baked * 3600) and (df_reserves['date'][i] < target_uni_date + forth_baked * 3600):
             reserves3.append({
                 'resID': df_reserves['resID'][i],
@@ -345,12 +364,15 @@ def table2():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
         elif (df_reserves['date'][i] >= target_uni_date + forth_baked * 3600) and (df_reserves['date'][i] < target_uni_date + tomorrow * 3600):
             reserves4.append({
                 'resID': df_reserves['resID'][i],
@@ -373,12 +395,15 @@ def table2():
             })
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
-                    for k in range(len(other_reserves)):        #if held datas have new data, add number
-                        if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
-                            other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
-                            break
-                        if k == len(other_reserves)-1:
-                            other_reserves.append({df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]})
+                    if len(other_reserves) == 0:
+                        other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
+                    else:
+                        for k in range(len(other_reserves)):        #if held datas have new data, add number
+                            if df_reserves[other_reserves_columns[0][j]][i] == other_reserves[k][0]:
+                                other_reserves[k][1] = other_reserves[k][1] + df_reserves[other_reserves_columns[1][j]][i]
+                                break
+                            if k == len(other_reserves)-1:
+                                other_reserves.append([df_reserves[other_reserves_columns[0][j]][i], df_reserves[other_reserves_columns[1][j]][i]])
     
     
     con = sqlite3.connect(OTHER_DATABASE)
@@ -421,6 +446,17 @@ def table2():
     done_other_reserves = []
     for row in db_other_reserves:
         done_other_reserves.append({'resID': db_other_reserves[0], 'content': str(db_other_reserves[2]+'x'+db_other_reserves[3]), 'frag': db_other_reserves[4]})
+    
+    
+    print('-------------other_reserves-------------')
+    print(other_reserves)
+    print('-------------undone_other_reserves-------------')
+    print(undone_other_reserves)
+    print('-------------done_other_reserves-------------')
+    print(done_other_reserves)
+    
+    
+    
     return render_template(
         'table.html',
         undone_other_reserves=undone_other_reserves,
