@@ -24,7 +24,7 @@ def resID_remind():
             fp.write(str(data))
 
 def other_resID_remind():
-    if not os.path.exists(os.getcwd() + os.sep + 'webapp' + os.sep + 'count.txt'):
+    if not os.path.exists(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt'):
         data = 'c' + str(1)
         with open(os.getcwd() + os.sep + 'webapp' + os.sep + 'other_count.txt', 'w', encoding='UTF8') as fp:
             fp.write(str(data))
