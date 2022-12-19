@@ -61,6 +61,10 @@ def table():
     other_reserves = []
     other_reserves_columns = [['res1', 'res2', 'res3', 'res4', 'res5'], ['n_res1', 'n_res2', 'n_res3', 'n_res4', 'n_res5']]
 
+    n_hon1 = 0
+    n_hon2 = 0
+    n_hon3 = 0
+    n_hon4 = 0
 
     for i in range(len(df_reserves)):
         if (df_reserves['date'][i] >= target_uni_date) and (df_reserves['date'][i] < target_uni_date + second_baked * 3600):
@@ -83,6 +87,7 @@ def table():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon1 = n_hon1 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -114,6 +119,7 @@ def table():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon2 = n_hon2 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -145,6 +151,7 @@ def table():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon3 = n_hon3 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -176,6 +183,7 @@ def table():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon4 = n_hon4 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -254,7 +262,11 @@ def table():
         first_baked=datetime.fromtimestamp(target_uni_date+first_baked*3600).strftime("%H時%M分"),
         second_baked=datetime.fromtimestamp(target_uni_date+second_baked*3600).strftime("%H時%M分"),
         third_baked=datetime.fromtimestamp(target_uni_date+third_baked*3600).strftime("%H時%M分"),
-        forth_baked=datetime.fromtimestamp(target_uni_date+forth_baked*3600).strftime("%H時%M分")
+        forth_baked=datetime.fromtimestamp(target_uni_date+forth_baked*3600).strftime("%H時%M分"),
+        n_hon1=n_hon1,
+        n_hon2=n_hon2,
+        n_hon3=n_hon3,
+        n_hon4=n_hon4
     )
 
 
@@ -292,6 +304,10 @@ def table2():
     other_reserves = []
     other_reserves_columns = [['res1', 'res2', 'res3', 'res4', 'res5'], ['n_res1', 'n_res2', 'n_res3', 'n_res4', 'n_res5']]
 
+    n_hon1 = 0
+    n_hon2 = 0
+    n_hon3 = 0
+    n_hon4 = 0
 
     for i in range(len(df_reserves)):
         if (df_reserves['date'][i] >= target_uni_date) and (df_reserves['date'][i] < target_uni_date + second_baked * 3600):
@@ -314,6 +330,7 @@ def table2():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon1 = n_hon1 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -345,6 +362,7 @@ def table2():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon2 = n_hon2 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -376,6 +394,7 @@ def table2():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon3 = n_hon3 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -407,6 +426,7 @@ def table2():
                 'n_res5': df_reserves['n_res5'][i],
                 'other': df_reserves['other'][i]
             })
+            n_hon4 = n_hon4 + int(df_reserves['n_hon'][i]) + int(df_reserves['n_kin'][i]) * 0.5
             for j in range(len(other_reserves_columns[0])):     #All reserve search
                 if df_reserves[other_reserves_columns[0][j]][i] != '':
                     if len(other_reserves) == 0:
@@ -485,7 +505,11 @@ def table2():
         first_baked=datetime.fromtimestamp(target_uni_date+first_baked*3600).strftime("%H時%M分"),
         second_baked=datetime.fromtimestamp(target_uni_date+second_baked*3600).strftime("%H時%M分"),
         third_baked=datetime.fromtimestamp(target_uni_date+third_baked*3600).strftime("%H時%M分"),
-        forth_baked=datetime.fromtimestamp(target_uni_date+forth_baked*3600).strftime("%H時%M分")
+        forth_baked=datetime.fromtimestamp(target_uni_date+forth_baked*3600).strftime("%H時%M分"),
+        n_hon1=n_hon1,
+        n_hon2=n_hon2,
+        n_hon3=n_hon3,
+        n_hon4=n_hon4
     )
 
 
